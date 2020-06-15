@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>three.js webgl - gpgpu - flocking</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
+    />
+    <style>
+     
+      body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+        overflow: hidden;
+        user-select: none;
+        font-family: "Raleway", sans-serif;
+        display: flex;
+      }
+
+      #background {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        left: 0;
+        top: 0;
+        z-index: 1;
+        border: none;
+        pointer-events: all;
+      }
+    </style>
+  </head>
+  <body>
+    <iframe id="background" src="./models.html"></iframe>
+    <div id="root"></div>
+  </body>
+</html>
