@@ -20,9 +20,12 @@
     <canvas id="cnv"></canvas>
     <div id="root"></div>
     <script type="module">
-      import * as THREE from "./build/three.module.js";
-      import { OrbitControls } from "./OrbitControls.js";
-      import { PLYLoader } from "./build/PLYLoader.js";
+      // import * as THREE from "./build/three.module.js";
+      import * as THREE from "https://unpkg.com/three@0.117.1/build/three.module.js";
+      // import { OrbitControls } from "./OrbitControls.js";
+      import { OrbitControls } from "https://unpkg.com/three@0.117.1/examples/jsm/controls/OrbitControls.js";
+      // import { PLYLoader } from "./build/PLYLoader.js";
+      import { PLYLoader } from "https://unpkg.com/three@0.117.1/examples/jsm/loaders/PLYLoader.js";
 
       let canvas, camera, cameraTarget, scene, renderer, controls;
 
