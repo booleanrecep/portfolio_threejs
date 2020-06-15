@@ -58,7 +58,7 @@ export default function DraggableList({ items }) {
             scale
           }}
           children={
-            <a href={`${myLinks[i]}`} target={"_blank"}>
+            <a href={`${myLinks[i]}`} target={"_blank"} rel="noopener noreferrer">
               {`${items[i]}`}
             </a>
           }

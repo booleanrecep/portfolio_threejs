@@ -64,7 +64,7 @@
         // PLY file
 
         const loader = new PLYLoader();
-        loader.load("./models/dolphins_colored.ply", function(geometry) {
+        loader.load("./dolphins_colored.ply", function(geometry) {
           geometry.computeVertexNormals();
 
           const material = new THREE.MeshStandardMaterial({
@@ -84,7 +84,7 @@
           scene.add(mesh);
         });
 
-        loader.load("./models/Lucy100k.ply", function(geometry) {
+        loader.load("./Lucy100k.ply", function(geometry) {
           geometry.computeVertexNormals();
 
           const material = new THREE.MeshStandardMaterial({
