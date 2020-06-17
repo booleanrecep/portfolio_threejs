@@ -5,6 +5,11 @@
       name="viewport"
       content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
+    <meta property="og:title" content="R3C3P" />
+    <meta property="op:type" content="website"/>
+    <meta property="og:description" content="R3C3P Website with 3D Model"/>
+    <meta property="og:url" content="r3c3p.netlify.app"/>
+    <meta property="og:image" content="ss.PNG"/>
     <style>
       body {
         margin: 0;
@@ -13,6 +18,8 @@
         width: 100vw;
         height: 100vh;
         display: block;
+        background: url("vp.jpg") no-repeat center center;
+        background-size: cover;
       }
     </style>
   </head>
@@ -24,7 +31,7 @@
       import { OrbitControls } from "https://unpkg.com/three@0.117.1/examples/jsm/controls/OrbitControls.js";
       import { PLYLoader } from "https://unpkg.com/three@0.117.1/examples/jsm/loaders/PLYLoader.js";
 
-      let canvas, camera, cameraTarget, scene, renderer, controls;
+      let meshDolphins,meshStatue, canvas, camera, cameraTarget, scene, renderer, controls;
 
       init();
       animate();
@@ -42,21 +49,21 @@
         cameraTarget = new THREE.Vector3(0, -0.1, 0);
 
         scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x72645b);
-        scene.fog = new THREE.Fog(0x72645b, 2, 15);
+        // scene.background = new THREE.Color(0x72645b);
+        // scene.fog = new THREE.Fog(0x72645b, 2, 15);
 
         // Ground
         controls = new OrbitControls(camera, canvas);
         controls.update();
-        const plane = new THREE.Mesh(
-          new THREE.PlaneBufferGeometry(40, 40),
-          new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 })
-        );
-        plane.rotation.x = -Math.PI / 2;
-        plane.position.y = -0.5;
-        scene.add(plane);
+        // const plane = new THREE.Mesh(
+        //   new THREE.PlaneBufferGeometry(40, 40),
+        //   new THREE.MeshPhongMaterial({ color: 0x999999, specular: 0x101010 })
+        // );
+        // plane.rotation.x = -Math.PI / 2;
+        // plane.position.y = -0.5;
+        // scene.add(plane);
 
-        plane.receiveShadow = true;
+        // plane.receiveShadow = true;
 
         // PLY file
 
@@ -68,17 +75,17 @@
             color: 0x0055ff,
             flatShading: true
           });
-          const mesh = new THREE.Mesh(geometry, material);
+          meshDolphins = new THREE.Mesh(geometry, material);
 
-          mesh.position.y = -0.2;
-          mesh.position.z = 0.3;
-          mesh.rotation.x = -Math.PI / 2;
-          mesh.scale.multiplyScalar(0.001);
+          meshDolphins.position.y = -0.2;
+          meshDolphins.position.z = 0.3;
+          meshDolphins.rotation.x = -Math.PI / 2;
+          meshDolphins.scale.multiplyScalar(0.001);
 
-          mesh.castShadow = true;
-          mesh.receiveShadow = true;
+          meshDolphins.castShadow = true;
+          meshDolphins.receiveShadow = true;
 
-          scene.add(mesh);
+          // scene.add(meshDolphins);
         });
 
         loader.load("./models/Lucy100k.ply", function(geometry) {
@@ -88,17 +95,17 @@
             color: 0x0055ff,
             flatShading: true
           });
-          const mesh = new THREE.Mesh(geometry, material);
+          meshStatue = new THREE.Mesh(geometry, material);
 
-          mesh.position.x = -0.2;
-          mesh.position.y = -0.02;
-          mesh.position.z = -0.2;
-          mesh.scale.multiplyScalar(0.0006);
+          meshStatue.position.x = 0.5;
+          meshStatue.position.y = -0.02;
+          meshStatue.position.z = -0.2;
+          meshStatue.scale.multiplyScalar(0.0006);
 
-          mesh.castShadow = true;
-          mesh.receiveShadow = true;
+          meshStatue.castShadow = true;
+          meshStatue.receiveShadow = true;
 
-          scene.add(mesh);
+          scene.add(meshStatue);
         });
 
         // Lights
@@ -110,7 +117,7 @@
 
         // renderer
 
-        renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
+        renderer = new THREE.WebGLRenderer({ canvas, antialias: true,alpha:true });
         renderer.setPixelRatio(window.devicePixelRatio);
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.outputEncoding = THREE.sRGBEncoding;
@@ -154,8 +161,14 @@
       }
 
       function animate() {
-        requestAnimationFrame(animate);
+        if( window.innerWidth <= 600) {
+          controls.addEventListener("change", render);
+          requestAnimationFrame(null);
 
+          
+        } 
+        requestAnimationFrame(animate);
+       
         render();
         controls.update();
       }
@@ -164,9 +177,9 @@
       function render() {
         const timer = Date.now() * 0.0005;
 
-        camera.position.x = Math.sin(timer) * 2.5;
-        camera.position.z = Math.cos(timer) * 2.5;
-
+        // camera.position.x = Math.sin(timer) * 2.5;
+        // camera.position.z = Math.cos(timer) * 2.5;
+        meshStatue.rotation.y += Math.sin(timer*0.5) * 0.04;
         camera.lookAt(cameraTarget);
         renderer.render(scene, camera);
       }
